@@ -1,2 +1,3 @@
-# frame-event-proxy-test
-Test for Proxying Events between Frames
+# TESTING
+
+download and run `index.html` in your browser.
