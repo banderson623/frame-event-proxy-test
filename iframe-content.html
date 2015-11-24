@@ -60,9 +60,6 @@
     console.log('y',y, b2.style.top);
   });
 
-  // onResize(function(data){
-  //   console.log('resize data', data);
-  // });
 
   function handleMessage(event){
     // console.log('received message',event.data);
@@ -73,6 +70,10 @@
       _resized(event.data);
     }
   }
+
   window.addEventListener("message", handleMessage, false);
+
+
+
 </script>
 </html>
