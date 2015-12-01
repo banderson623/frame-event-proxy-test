@@ -65,6 +65,34 @@
   var hostAndProtocol = location.protocol + '//' + location.host;
   console.log('hostAndProtocol ' + hostAndProtocol);
 
+  /**
+   * Throttles a function to only run once ever N milliseconds:
+   * @param {Function} function to invoke.
+   * @param {Number} throttle time limit, in milliseconds.
+   * @param {Object} binding context in which the function is invoked.
+   * @returns {Function} the throttled function.
+   */
+  var throttle = function(fn, limit, context) {
+    var timer = null;
+    var called = false;
+    var limiter = function() {
+      if (timer) {
+        called = true;
+        return;
+      }
+
+      context = context || this;
+      fn.call(context);
+
+      timer = setTimeout(function() {
+        var recall = called;
+        timer = null;
+        called = false;
+        if (recall) limiter.call(context);
+      }, limit);
+    };
+    return limiter;
+  };
 
   var frames = window.frames;
 
@@ -76,15 +104,16 @@
     }
   };
 
-  window.addEventListener('scroll', function(){
+  window.addEventListener('scroll', throttle(function(){
     messageProxy('scroll',{y: window.scrollY});
-  });
-  window.addEventListener('resize', function(){
+  },25));
+
+  window.addEventListener('resize', throttle(function(){
     messageProxy('resize',{
       x: window.innerWidth,
       y: window.innerHeight
     });
-  });
+  },250));
 
 
 </script>

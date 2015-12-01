@@ -25,7 +25,7 @@
     };
 
     var _resized = function(data){
-      for(var i = 0; i < _onScroll.length; i++){
+      for(var i = 0; i < _onResize.length; i++){
         _onResize[i].call(this,data);
       }
     };
@@ -58,6 +58,10 @@
   onScroll(function(y){
     b2.style.top = (y/4)+"px";
     console.log('y',y, b2.style.top);
+  });
+
+  onResize(function(data){
+    console.log('y',data);
   });
 
 
